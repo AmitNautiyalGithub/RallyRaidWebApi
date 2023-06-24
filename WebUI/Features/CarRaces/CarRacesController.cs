@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebUI.Features.CarRaces.Models;
+using WebUI.Features.CarRaces.Services;
 
 namespace WebUI.Features.CarRaces
 {
@@ -12,6 +13,8 @@ namespace WebUI.Features.CarRaces
     public class CarRacesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        public CarRaceService CarRaceService { get; set; } = new CarRaceService();
+
 
         public CarRacesController(ApplicationDbContext context)
         {
@@ -59,7 +62,7 @@ namespace WebUI.Features.CarRaces
         public IActionResult UpateCarRaces(CarRaceUpdateModel carRace)
         {
             var dbCarRace = _context.CarRaces
-                .Include(cr=> cr.Cars)
+                .Include(cr => cr.Cars)
                 .FirstOrDefault(cr => cr.Id == carRace.Id);
             if (dbCarRace == null)
             {
@@ -132,9 +135,12 @@ namespace WebUI.Features.CarRaces
             }
 
             dbCarRace.Status = "Started";
+
+            var finishedRace = CarRaceService.RunRace(dbCarRace);
+
             _context.SaveChanges();
 
-            return Ok(dbCarRace);
+            return Ok(finishedRace);
         }
     }
 }

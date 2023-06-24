@@ -8,7 +8,7 @@
         public int MelfunctionOccured { get; set; }
         public int Speed { get; set; }
         public int DistanceConveredInMiles { get; set; }
-        public int FinishedRace { get; set; }
+        public bool FinishedRace { get; set; }
         public int RacedForHours { get; set; }
     }
 }
