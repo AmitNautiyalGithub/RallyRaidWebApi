@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebUI.Features
+namespace WebUI.Features.MotorBikes
 {
     [Route("api/[controller]")]
     [ApiController]
