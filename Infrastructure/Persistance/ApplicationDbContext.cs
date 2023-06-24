@@ -13,5 +13,6 @@ namespace Infrastructure.Persistance
 
         public DbSet<Car> Cars { get; set; }
         public DbSet<MotorBike> MotorBikes { get; set; }
+        public DbSet<CarRace> CarRaces { get; set; }
     }
 }

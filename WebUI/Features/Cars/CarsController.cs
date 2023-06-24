@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Infrastructure.Persistance;
 using Microsoft.AspNetCore.Mvc;
+using WebUI.Features.Cars.Models;
 
 namespace WebUI.Features.Cars
 {
@@ -65,9 +66,17 @@ namespace WebUI.Features.Cars
         }
 
         [HttpPost]
-        public ActionResult<Car> CreateCar(Car car)
+        public ActionResult<Car> CreateCar(CarCreateModel car)
         {
-            _context.Cars.Add(car);
+            var newCar = new Car
+            {
+                TeamName = car.TeamName,
+                Speed = car.Speed,
+                MelfunctionChance = car.MelfunctionChance
+            };
+
+
+            _context.Cars.Add(newCar);
             _context.SaveChanges();
 
             //var newCar = new Car
@@ -78,11 +87,11 @@ namespace WebUI.Features.Cars
             //    MelfunctionChance = car.MelfunctionChance
             //};
 
-            return Ok(car);
+            return Ok(newCar);
         }
 
         [HttpPut]
-        public ActionResult<Car> UpdateCar(Car car)
+        public ActionResult<Car> UpdateCar(CarUpdateModel car)
         {
             //var updateCar = new Car
             //{
